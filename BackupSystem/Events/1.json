@@ -2,14 +2,14 @@
   "name": "[DBME] BackupSystem",
   "temp": "",
   "event-type": "48",
-  "_id": "kPjHQ",
+  "_id": "DBME-BackupSystem",
   "actions": [
     {
       "color": "#000000",
       "comment": "",
       "behavior": "0",
       "interpretation": "1",
-      "code": "async function backup() {\n    try {\n        const fs = require('fs');\n        const date = new Date();\n        const files = [\"commands.json\", \"events.json\", \"players.json\", \"globalVars.json\", \"servers.json\", \"serverVars.json\", \"settings.json\"]\n\n        const dir0 = `./data/Backup`\n        const dir1 = `./data/Backup/${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`\n        const dir2 = `${dir1}/${Date.now()}`\n\n        if (!fs.existsSync(dir0)) fs.mkdirSync(dir0);\n        if (!fs.existsSync(dir1)) fs.mkdirSync(dir1);\n        fs.mkdirSync(dir2);\n\n        for (i in files) {\n            fs.copyFileSync(`./data/${files[i]}`, `${dir2}/${files[i]}`)\n        }\n    } catch (error) {\n        console.log(\"An error occured with *BACKUP CREATION*\")\n    }\n}\n\nbackup()",
+      "code": "async function backup() {\n    try {\n        const fs = require('fs');\n        const date = new Date();\n        const files = [\"commands.json\", \"events.json\", \"players.json\", \"servers.json\", \"globals.json\", \"serverVars.json\", \"globalVars.json\", \"settings.json\"]\n\n        const dir0 = `./data/Backup`\n        const dir1 = `./data/Backup/${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`\n        const dir2 = `${dir1}/${Date.now()}`\n\n        if (!fs.existsSync(dir0)) fs.mkdirSync(dir0);\n        if (!fs.existsSync(dir1)) fs.mkdirSync(dir1);\n        fs.mkdirSync(dir2);\n\n        for (i in files) {\n            if (!fs.existsSync(`./data/${files[i]}`)) continue;\n            fs.copyFileSync(`./data/${files[i]}`, `${dir2}/${files[i]}`)\n        }\n    } catch (error) {\n        console.log(\"An error occured with *BACKUP CREATION*\")\n    }\n}\n\nbackup()",
       "storage": "0",
       "varName": "",
       "name": "Run Script"
